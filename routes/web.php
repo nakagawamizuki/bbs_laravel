@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/hello', function () {
-    return view('welcome');
-});
+// Route::get('/hello', function () {
+//     return view('welcome');
+// });
+Route::get('/', 'MessagesController@index');
+Route::resource('messages', 'MessagesController');
+// HTTPS接続でアセット(CSSや画像など)を読み込むため
+if (env('APP_ENV') === 'local') {
+    URL::forceScheme('https');
+};
