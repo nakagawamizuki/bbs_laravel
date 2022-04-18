@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        // MessagesTableSeeder の呼び出し
+        $this->call([MessagesTableSeeder::class]);
     }
 }

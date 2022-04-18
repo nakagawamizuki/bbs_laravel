@@ -14,8 +14,8 @@ class MessagesController extends Controller
      */
     public function index()
     {
-        // Messageモデルを使って、MySQLのmessageテーブルから全データ取得
-        $message = Message::all();
+        // Messageモデルを使って、MySQLのmessagesテーブルから15件のデータ取得
+        $message = Message::paginate(15);
         
         // // フラッシュメッセージをセッションから取得
         // $flash_message = section('flash_message');
