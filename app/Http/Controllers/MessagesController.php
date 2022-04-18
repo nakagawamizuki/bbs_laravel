@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Message;
+use App\Comment; // 追加
 use Illuminate\Http\Request;
 
 class MessagesController extends Controller
@@ -123,17 +124,11 @@ class MessagesController extends Controller
      */
     public function show(Message $message)
     {
-        // フラッシュメッセージをセッションから取得
-        // $flash_message = session('flash_message');
-        // // セッション情報の破棄
-        // session()->forget('flash_message');
-        // // // フラッシュメッセージをnullにセット
-        // // $flash_message = null;
-        // // エラーメッセージをnullにセット
-        // $errors = null;
+        // このメッセージに紐づいたコメント一覧を取得
+        $comments = $message->comments()->get();
         
         // 連想配列のデータを1セット（viewで引き出すキーワードと値のセット）引き連れてviewを呼び出す
-        return view('messages.show', compact('message'));
+        return view('messages.show', compact('message', 'comments'));
     }
 
     /**
@@ -144,14 +139,6 @@ class MessagesController extends Controller
      */
     public function edit(Message $message)
     {
-        // // フラッシュメッセージをnullにセット
-        // $flash_message = null;
-        
-        // // エラーメッセージをセッションから取得
-        // $errors = session('errors');
-        // // セッション情報の破棄
-        // session()->forget('errors');
-        
         // 連想配列のデータを1セット（viewで引き出すキーワードと値のセット）引き連れてviewを呼び出す
         return view('messages.edit', compact('message'));
     }
@@ -217,8 +204,6 @@ class MessagesController extends Controller
     {
         // 該当メッセージをデータベースから削除
         $message->delete();
-        // // セッションにflash_message をセット
-        // session(['flash_message' => 'id: ' . $message->id . 'の投稿を削除しました']);
         
         // フラッシュメッセージを保存しながらshowアクションにリダイレクト
         return redirect('/')->with('flash_message', 'id: ' . $message->id . 'の投稿を削除しました');
