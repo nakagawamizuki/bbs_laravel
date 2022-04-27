@@ -7,7 +7,7 @@ use App\Comment; // 追加
 
 class Message extends Model
 {
-    // 入力チェック
+     // 入力チェック
     public function validate(){
         
          // エラー配列を空で作成

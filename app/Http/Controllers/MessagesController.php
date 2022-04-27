@@ -16,19 +16,9 @@ class MessagesController extends Controller
     public function index()
     {
         // Messageモデルを使って、MySQLのmessagesテーブルから15件のデータ取得
-        $message = Message::paginate(15);
+        $messages = Message::paginate(15);
         
-        // // フラッシュメッセージをセッションから取得
-        // $flash_message = section('flash_message');
-        // // セッション情報の破棄
-        // section()->forget('flash_message');
-        
-        // // // フラッシュメッセージにnullをセット
-        // // $flash_message = null;
-        // // エラーメッセージにnullをセット
-        // $errors = null;
-        
-        // 連想配列のデータを3セット（viewで引き出すキーワードと値のセット）引き連れてviewを呼び出す
+        // 連想配列のデータを1セット（viewで引き出すキーワードと値のセット）引き連れてviewを呼び出す
         return view('messages.index', compact('messages'));
     }
 
@@ -42,28 +32,10 @@ class MessagesController extends Controller
         // 空のメッセージインスタンスを作成
         $message = new Message();
         
-        // // セッションにメッセージが保存されていれば
-        // if(section('message')){
-        //     // セッションからメッセージ取得
-        //     $message = section('message');
-        //     // セッション情報の破棄
-        //     section()->forget('message');
-        // }
-        
-        // // フラッシュメッセージにnullをセット
-        // $flash_message = null;
-        // // エラーメッセージにnullをセット
-        // // $errors = null;
-        
-        // // エラーメッセージをセッションから取得
-        // $errors = section('errors');
-        // // セッション情報の破棄
-        // section()->forget('errors');
-        
-        // 連想配列のデータを3セット（viewで引き出すキーワードと値のセット）引き連れてviewを呼び出す
+        // 連想配列のデータを1セット（viewで引き出すキーワードと値のセット）引き連れてviewを呼び出す
         return view('messages.create', compact('message'));
     }
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -126,8 +98,7 @@ class MessagesController extends Controller
     {
         // このメッセージに紐づいたコメント一覧を取得
         $comments = $message->comments()->get();
-        
-        // 連想配列のデータを1セット（viewで引き出すキーワードと値のセット）引き連れてviewを呼び出す
+        // 連想配列のデータを2セット（viewで引き出すキーワードと値のセット）引き連れてviewを呼び出す
         return view('messages.show', compact('message', 'comments'));
     }
 
@@ -152,6 +123,7 @@ class MessagesController extends Controller
      */
     public function update(Request $request, Message $message)
     {
+        
         // validation
         $this->validate($request, [
             'name' => 'required',
@@ -204,7 +176,6 @@ class MessagesController extends Controller
     {
         // 該当メッセージをデータベースから削除
         $message->delete();
-        
         // フラッシュメッセージを保存しながらshowアクションにリダイレクト
         return redirect('/')->with('flash_message', 'id: ' . $message->id . 'の投稿を削除しました');
     }

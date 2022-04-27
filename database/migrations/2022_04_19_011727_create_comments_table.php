@@ -20,6 +20,7 @@ class CreateCommentsTable extends Migration
             $table->string('body');
             $table->timestamps();
             
+            //外部キー制約
             $table->foreign('message_id')
                     ->references('id')
                     ->on('messages')
