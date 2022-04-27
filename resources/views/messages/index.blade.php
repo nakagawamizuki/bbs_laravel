@@ -3,7 +3,7 @@
 @section('header', '投稿一覧')
 @section('content')
             <div class="row mt-2">
-                @if($messages->total() !== 0) 
+                @if(count($messages) !== 0) 
                 <table class="col-sm-12 table table-bordered table-striped">
                     <tr>
                         <th>ID</th>
@@ -15,7 +15,7 @@
                     </tr>
                     @foreach($messages as $message)
                     <tr>
-                        <td><a href="/messages/{{ $message->id }}">{{ $message->id }}</a></td>
+                        <td>{!! link_to_route('messages.show', $message->id, ['id' => $message->id], []) !!}</td>
                         <td>{{ $message->name }}</td>
                         <td>{{ $message->title }}</td>
                         <td>{{ $message->body }}</td>
@@ -36,7 +36,10 @@
                 @endif
             </div>
             <div class="row mt-5">
-                <a href="/messages/create" class="btn btn-primary">新規投稿</a>
-            </div> 
+                {!! link_to_route('messages.create', '新規投稿', [], ['class' => 'btn btn-primary']) !!}
+            </div>
+            <div class="row mt-5">
+                
+            </div>
         </div>
 @endsection
