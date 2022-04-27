@@ -1,5 +1,5 @@
-@if(section('flash_message'))
+@if(session('flash_message'))
 <div class="row mt-2">
-    <h2 class="text-center col-sm-12">{{ section('flash_message') }}</h2>
+    <h2 class="text-center col-sm-12">{{ session('flash_message') }}</h1>
 </div>
 @endif

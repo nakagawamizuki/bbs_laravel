@@ -96,10 +96,8 @@ class MessagesController extends Controller
      */
     public function show(Message $message)
     {
-        // このメッセージに紐づいたコメント一覧を取得
-        $comments = $message->comments()->get();
-        // 連想配列のデータを2セット（viewで引き出すキーワードと値のセット）引き連れてviewを呼び出す
-        return view('messages.show', compact('message', 'comments'));
+        // 連想配列のデータを1セット（viewで引き出すキーワードと値のセット）引き連れてviewを呼び出す
+        return view('messages.show', compact('message'));
     }
 
     /**
